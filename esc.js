@@ -7,6 +7,17 @@
 	/*
 	Returns an integer in the range [min, max].
 	*/
+            if (!arguements.length) {
+                  return Math.round(Math.random());
+            }
+            if (arguments.length === 1) {
+                  return Math.round(Math.random()*min);
+            }
+            if (min > max) {
+                  min = min - max;
+                  max = min + max;
+                  min = max - min;
+            }
 		return Math.round(Math.random()*(max-min))+min;
 	};
 	
