@@ -57,7 +57,7 @@
                   05: {abbrev: 'AR', full: 'Arkansas'},
                   60: {abbrev: 'AS', full: 'American Samoa'},
                   04: {abbrev: 'AZ', full: 'Arizona'},
-                  06: {abbrev: 'CA', full 'California'},
+                  06: {abbrev: 'CA', full: 'California'},
                   08: {abbrev: 'CO', full: 'Colorado'},
                   09: {abbrev: 'CT', full: 'Connecticut'},
                   11: {abbrev: 'DC', full: 'District of Columbia'},
