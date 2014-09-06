@@ -81,7 +81,7 @@
                   29: {abbrev: 'MO', full: 'Missouri'},
                   28: {abbrev: 'MS', full: 'Mississippi'},
                   30: {abbrev: 'MT', full: 'Montana'},
-                  37: {abbrev: 'NC', full: 'Morth Carolina'},
+                  37: {abbrev: 'NC', full: 'North Carolina'},
                   38: {abbrev: 'ND', full: 'North Dakota'},
                   31: {abbrev: 'NE', full: 'Nebraska'},
                   33: {abbrev: 'NH', full: 'New Hampshire'},
