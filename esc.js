@@ -109,7 +109,7 @@
                   41: {abbrev: 'OR', full: 'Oregon'},
                   42: {abbrev: 'PA', full: 'Pennsylvania'},
                   72: {abbrev: 'PR', full: 'Puerto Rico'},
-                  44: {abbrev: 'RI', full: 'Road Island'},
+                  44: {abbrev: 'RI', full: 'Rhode Island'},
                   45: {abbrev: 'SC', full: 'South Carolina'},
                   46: {abbrev: 'SD', full: 'South Dakota'},
                   47: {abbrev: 'TN', full: 'Tennessee'},
