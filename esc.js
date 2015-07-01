@@ -2,7 +2,7 @@
 	var esc = {
 		version: "0.0.3"
 	}
-		
+
 	esc.randInt = function(min, max) {
 	/*
 	Returns an integer in the range [min, max].
@@ -20,7 +20,7 @@
             }
 		return Math.round(Math.random()*(max-min))+min;
 	};
-	
+
 	esc.capitalize = function (string) {
 	/*
 	Capitalizes the first character of the argument string and returns result.
@@ -31,7 +31,7 @@
 		}
 		return string.slice(0, i) + string.charAt(i).toUpperCase() + string.slice(i+1)
 	};
-	
+
 	esc.capitalizeAll = function (string, seperator) {
 	/*
 	Capitalizes all words in the argument string. Also eliminates extraneous
@@ -48,7 +48,6 @@
 		});
 		return temp.join(' ');
 	}
-	this.esc = esc;
 
       /*
       Removes the element from the array.
@@ -65,6 +64,10 @@
             return false;
       }
 
+			/*
+			Accepts a USA state fips code and returns the name of the state.
+			If optional abbrev is true then returns abreviated name.
+			*/
       esc.fips2state = function(fips, abbrev) {
             var fipsMap = {
                   2: {abbrev: 'AK', full: 'Alaska'},
