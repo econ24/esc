@@ -141,5 +141,5 @@
 
 	  if (typeof define === "function" && define.amd) define(esc);
 		else if (typeof module === "object" && module.exports) module.exports = esc;
-	  this.d3 = d3;
+	  this.esc = esc;
 })();
