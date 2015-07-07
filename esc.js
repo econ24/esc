@@ -139,5 +139,7 @@
             return abbrev ? fipsMap[+fips].abbrev || fips : fipsMap[+fips].full || fips;
       }
 
-      this.esc = esc;
+	  if (typeof define === "function" && define.amd) define(esc);
+		else if (typeof module === "object" && module.exports) module.exports = esc;
+	  this.d3 = d3;
 })();
