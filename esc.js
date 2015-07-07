@@ -1,6 +1,16 @@
 (function() {
-	var esc = {
-		version: "0.0.3"
+	var esc = {}
+
+	esc.stringFormat = function(string) {
+	/*
+	example: esc.stringFormat("This %s is %s!", "thing", "awesome");
+	returns: "This thing is awesome!"
+	*/
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		return string.replace(/(%\w)/g, function(s, n) {
+			return args.length ? args.shift() : s;
+		})
 	}
 
 	esc.randInt = function(min, max) {
