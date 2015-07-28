@@ -30,7 +30,7 @@
 	}
 	esc.getMonth = function(num, zeroBase) {
 		if (zeroBase) {
-			return MONTHS[num-1];
+			return MONTHS[num+1];
 		}
 		return MONTHS[num];
 	}
