@@ -29,8 +29,9 @@
 		12: "December"
 	}
 	esc.getMonth = function(num, zeroBase) {
+		num = +num;
 		if (zeroBase) {
-			return MONTHS[num+1];
+			++num;
 		}
 		return MONTHS[num];
 	}
