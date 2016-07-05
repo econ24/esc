@@ -52,7 +52,7 @@
 	/*
 	Returns an integer in the range [min, max].
 	*/
-            if (!arguements.length) {
+            if (!arguments.length) {
                   return Math.round(Math.random());
             }
             if (arguments.length === 1) {
