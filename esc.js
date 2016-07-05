@@ -50,20 +50,23 @@
 
 	esc.randInt = function(min, max) {
 	/*
-	Returns an integer in the range [min, max].
+	Returns an integer in the range:
+	[0, 1] if 0 arguments.
+	[0, min) if 1 argument.
+	[min, max] if 2 arguments.
 	*/
             if (!arguments.length) {
                   return Math.round(Math.random());
             }
             if (arguments.length === 1) {
-                  return Math.round(Math.random()*min);
+                  return Math.round(Math.random() * (min - 1));
             }
             if (min > max) {
                   min = min - max;
                   max = min + max;
                   min = max - min;
             }
-		return Math.round(Math.random()*(max-min))+min;
+		return Math.round(Math.random() * (max - min)) + min;
 	};
 
 	esc.capitalize = function (string) {
