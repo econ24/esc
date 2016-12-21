@@ -1,7 +1,11 @@
 (function() {
 	var esc = {
-		version: "0.0.3"
+		version: "0.0.4"
 	}
+
+      esc.copyObject = function(obj) {
+            return JSON.parse(JSON.stringify(obj));
+      };
 		
 	esc.randInt = function(min, max) {
 	/*
