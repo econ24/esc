@@ -1,7 +1,7 @@
 (function() {
       
 	var esc = {
-		version: "0.0.4"
+		version: "0.1.4"
 	}
 
       esc.copyObject = function(obj) {
