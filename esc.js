@@ -1,4 +1,5 @@
 (function() {
+      
 	var esc = {
 		version: "0.0.4"
 	}
@@ -7,24 +8,76 @@
             return JSON.parse(JSON.stringify(obj));
       };
 		
+	var esc = {}
+
+	esc.KeyMirror = function(array) {
+	    var obj = new Object(null);
+
+	    array.forEach(function(key) {
+	        if (key in obj) {
+	            throw new Error("<escKeyMirror> Duplicate key: "+key);
+	        }
+	        obj[key] = key;
+	    })
+
+	    return obj;
+	}
+
+	var MONTHS = {
+		1: "January",
+		2: "February",
+		3: "March",
+		4: "April",
+		5: "May",
+		6: "June",
+		7: "July",
+		8: "August",
+		9: "September",
+		10: "October",
+		11: "November",
+		12: "December"
+	}
+	esc.getMonth = function(num, zeroBase) {
+		num = +num;
+		if (zeroBase) {
+			++num;
+		}
+		return MONTHS[num];
+	}
+
+	esc.stringFormat = function(string) {
+	/*
+	example: esc.stringFormat("This %s is %s!", "thing", "awesome");
+	returns: "This thing is awesome!"
+	*/
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		return string.replace(/(%\w)/g, function(s, n) {
+			return args.length ? args.shift() : s;
+		})
+	}
+
 	esc.randInt = function(min, max) {
 	/*
-	Returns an integer in the range [min, max].
+	Returns an integer in the range:
+	[0, 1] if 0 arguments.
+	[0, min) if 1 argument.
+	[min, max] if 2 arguments.
 	*/
-            if (!arguements.length) {
+            if (!arguments.length) {
                   return Math.round(Math.random());
             }
             if (arguments.length === 1) {
-                  return Math.round(Math.random()*min);
+                  return Math.round(Math.random() * (min - 1));
             }
             if (min > max) {
                   min = min - max;
                   max = min + max;
                   min = max - min;
             }
-		return Math.round(Math.random()*(max-min))+min;
+		return Math.round(Math.random() * (max - min)) + min;
 	};
-	
+
 	esc.capitalize = function (string) {
 	/*
 	Capitalizes the first character of the argument string and returns result.
@@ -35,7 +88,7 @@
 		}
 		return string.slice(0, i) + string.charAt(i).toUpperCase() + string.slice(i+1)
 	};
-	
+
 	esc.capitalizeAll = function (string, seperator) {
 	/*
 	Capitalizes all words in the argument string. Also eliminates extraneous
@@ -52,7 +105,6 @@
 		});
 		return temp.join(' ');
 	}
-	this.esc = esc;
 
       /*
       Removes the element from the array.
@@ -69,66 +121,75 @@
             return false;
       }
 
-      esc.fips2state = function(fips, abbrev) {
-            var fipsMap = {
-                  2: {abbrev: 'AK', full: 'Alaska'},
-                  1: {abbrev: 'AL', full: 'Alabama'},
-                  5: {abbrev: 'AR', full: 'Arkansas'},
-                  60: {abbrev: 'AS', full: 'American Samoa'},
-                  4: {abbrev: 'AZ', full: 'Arizona'},
-                  6: {abbrev: 'CA', full: 'California'},
-                  8: {abbrev: 'CO', full: 'Colorado'},
-                  9: {abbrev: 'CT', full: 'Connecticut'},
-                  11: {abbrev: 'DC', full: 'District of Columbia'},
-                  10: {abbrev: 'DE', full: 'Delaware'},
-                  12: {abbrev: 'FL', full: 'Florida'},
-                  13: {abbrev: 'GA', full: 'Georgia'},
-                  66: {abbrev: 'GU', full: 'Guam'},
-                  15: {abbrev: 'HI', full: 'Hawaii'},
-                  19: {abbrev: 'IA', full: 'Iowa'},
-                  16: {abbrev: 'ID', full: 'Idaho'},
-                  17: {abbrev: 'IL', full: 'Illinois'},
-                  18: {abbrev: 'IN', full: 'Indiana'},
-                  20: {abbrev: 'KS', full: 'Kansas'},
-                  21: {abbrev: 'KY', full: 'Kentucky'},
-                  22: {abbrev: 'LA', full: 'Louisiana'},
-                  25: {abbrev: 'MA', full: 'Massachusetts'},
-                  24: {abbrev: 'MD', full: 'Maryland'},
-                  23: {abbrev: 'ME', full: 'Maine'},
-                  26: {abbrev: 'MI', full: 'Michigan'},
-                  27: {abbrev: 'MN', full: 'Minnesota'},
-                  29: {abbrev: 'MO', full: 'Missouri'},
-                  28: {abbrev: 'MS', full: 'Mississippi'},
-                  30: {abbrev: 'MT', full: 'Montana'},
-                  37: {abbrev: 'NC', full: 'North Carolina'},
-                  38: {abbrev: 'ND', full: 'North Dakota'},
-                  31: {abbrev: 'NE', full: 'Nebraska'},
-                  33: {abbrev: 'NH', full: 'New Hampshire'},
-                  34: {abbrev: 'NJ', full: 'New Jersey'},
-                  35: {abbrev: 'NM', full: 'New Mexico'},
-                  32: {abbrev: 'NV', full: 'Nevada'},
-                  36: {abbrev: 'NY', full: 'New York'},
-                  39: {abbrev: 'OH', full: 'Ohio'},
-                  40: {abbrev: 'OK', full: 'Oklahoma'},
-                  41: {abbrev: 'OR', full: 'Oregon'},
-                  42: {abbrev: 'PA', full: 'Pennsylvania'},
-                  72: {abbrev: 'PR', full: 'Puerto Rico'},
-                  44: {abbrev: 'RI', full: 'Rhode Island'},
-                  45: {abbrev: 'SC', full: 'South Carolina'},
-                  46: {abbrev: 'SD', full: 'South Dakota'},
-                  47: {abbrev: 'TN', full: 'Tennessee'},
-                  48: {abbrev: 'TX', full: 'Texas'},
-                  49: {abbrev: 'UT', full: 'Utah'},
-                  51: {abbrev: 'VA', full: 'Virginia'},
-                  78: {abbrev: 'VI', full: 'Virgin Islands'},
-                  50: {abbrev: 'VT', full: 'Vermont'},
-                  53: {abbrev: 'WA', full: 'Washington'},
-                  55: {abbrev: 'WI', full: 'Wisconsin'},
-                  54: {abbrev: 'WV', full: 'West Virginia'},
-                  56: {abbrev: 'WY', full: 'Wyoming'}
-            }
-            return abbrev ? fipsMap[+fips].abbrev || fips : fipsMap[+fips].full || fips;
-      }
+	/*
+	Accepts a USA state fips code and returns the name of the state.
+	If optional abbrev is true then returns abreviated name.
+	*/
+	var FIPS_MAP = {
+	      2: {abbrev: 'AK', full: 'Alaska'},
+	      1: {abbrev: 'AL', full: 'Alabama'},
+	      5: {abbrev: 'AR', full: 'Arkansas'},
+	      60: {abbrev: 'AS', full: 'American Samoa'},
+	      4: {abbrev: 'AZ', full: 'Arizona'},
+	      6: {abbrev: 'CA', full: 'California'},
+	      8: {abbrev: 'CO', full: 'Colorado'},
+	      9: {abbrev: 'CT', full: 'Connecticut'},
+	      11: {abbrev: 'DC', full: 'District of Columbia'},
+	      10: {abbrev: 'DE', full: 'Delaware'},
+	      12: {abbrev: 'FL', full: 'Florida'},
+	      13: {abbrev: 'GA', full: 'Georgia'},
+	      66: {abbrev: 'GU', full: 'Guam'},
+	      15: {abbrev: 'HI', full: 'Hawaii'},
+	      19: {abbrev: 'IA', full: 'Iowa'},
+	      16: {abbrev: 'ID', full: 'Idaho'},
+	      17: {abbrev: 'IL', full: 'Illinois'},
+	      18: {abbrev: 'IN', full: 'Indiana'},
+	      20: {abbrev: 'KS', full: 'Kansas'},
+	      21: {abbrev: 'KY', full: 'Kentucky'},
+	      22: {abbrev: 'LA', full: 'Louisiana'},
+	      25: {abbrev: 'MA', full: 'Massachusetts'},
+	      24: {abbrev: 'MD', full: 'Maryland'},
+	      23: {abbrev: 'ME', full: 'Maine'},
+	      26: {abbrev: 'MI', full: 'Michigan'},
+	      27: {abbrev: 'MN', full: 'Minnesota'},
+	      29: {abbrev: 'MO', full: 'Missouri'},
+	      28: {abbrev: 'MS', full: 'Mississippi'},
+	      30: {abbrev: 'MT', full: 'Montana'},
+	      37: {abbrev: 'NC', full: 'North Carolina'},
+	      38: {abbrev: 'ND', full: 'North Dakota'},
+	      31: {abbrev: 'NE', full: 'Nebraska'},
+	      33: {abbrev: 'NH', full: 'New Hampshire'},
+	      34: {abbrev: 'NJ', full: 'New Jersey'},
+	      35: {abbrev: 'NM', full: 'New Mexico'},
+	      32: {abbrev: 'NV', full: 'Nevada'},
+	      36: {abbrev: 'NY', full: 'New York'},
+	      39: {abbrev: 'OH', full: 'Ohio'},
+	      40: {abbrev: 'OK', full: 'Oklahoma'},
+	      41: {abbrev: 'OR', full: 'Oregon'},
+	      42: {abbrev: 'PA', full: 'Pennsylvania'},
+	      72: {abbrev: 'PR', full: 'Puerto Rico'},
+	      44: {abbrev: 'RI', full: 'Rhode Island'},
+	      45: {abbrev: 'SC', full: 'South Carolina'},
+	      46: {abbrev: 'SD', full: 'South Dakota'},
+	      47: {abbrev: 'TN', full: 'Tennessee'},
+	      48: {abbrev: 'TX', full: 'Texas'},
+	      49: {abbrev: 'UT', full: 'Utah'},
+	      51: {abbrev: 'VA', full: 'Virginia'},
+	      78: {abbrev: 'VI', full: 'Virgin Islands'},
+	      50: {abbrev: 'VT', full: 'Vermont'},
+	      53: {abbrev: 'WA', full: 'Washington'},
+	      55: {abbrev: 'WI', full: 'Wisconsin'},
+	      54: {abbrev: 'WV', full: 'West Virginia'},
+	      56: {abbrev: 'WY', full: 'Wyoming'}
+	}
+	esc.fips2state = function(fips, abbrev) {
+		if (!FIPS_MAP[+fips]) {
+			return null;
+		}
+        return abbrev ? FIPS_MAP[+fips].abbrev : FIPS_MAP[+fips].full;
+	}
 
-      this.esc = esc;
+	  if (typeof define === "function" && define.amd) define(esc);
+		else if (typeof module === "object" && module.exports) module.exports = esc;
+	  this.esc = esc;
 })();
